@@ -1,0 +1,25 @@
+Cutting Points for Testing - 
+	To test my program, I am planning to test the "Physics Engine" task and "LED Output Task". For both tasks, I will test to see if 
+the inputs produce the desired task outputs. I will create unit tests for this in the near future.
+
+
+Schedule -
+
+Task diagram - 2 hours
+Gather Relevant Physics Equations- 1 hour
+Learn how to further display geometry and physics on LCD screen - 3 hours
+Implement Slider Shield Task - 2 hours
+Test Shield Task Produces Desired Output - 1 hour
+Implement Slider Physics Task - 2 hours
+Test Physics Task Produces Desired Output - 1 hour
+Implement Physics Engine - 4 hours
+Test Physics Task Produces Desired Output - 2 hours
+Implement LED Output Task - 1 hour
+Test LED Task Produces Desired Output - 2 hours
+Implement LCD Task, create geometry - 4 hours
+Create Unit Tests for project - 4 hours
+Run unit tests on project - 4 hours
+
+Estimate Total Time: 31 hours
+
+

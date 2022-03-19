@@ -8,9 +8,13 @@ Week #2 -
 I completed around 20% of the project timeline so far in about 10 hours. This required about 1.25x more time than initially expected. I have added time for additional unit tests as I want to incrementally test my project and want to create the slider task first before moving on. I have added an additional 4 hours for unit tests for final, completed project.
 
 complete - Task diagram - 2 hours
+	Helped me create plan for incremental development.
 complete - Gather Relevant Physics Equations- 1 hour
+	Going to create slider functionality first. Generally understood relevant kinematic equations and how they create slider functionality. This will aid in 	  development of slider functionality in the physics engine.
 complete - Learn how to further display geometry and physics on LCD screen - 3 hours
+	   Understand functions that draw basic shapes on LCD screen. This has saved me from having to write complex code to directly communicate with LCD screen.
 complete - Implement Slider Shield Task - estimated 2 hours, completed in 4 hours.
+	   Slider now moves with pushbutton input. Still fixing a few bugs, but generally works.
 
 Test Shield Task Produces Desired Output - 1 hour
 Implement Slider Physics Task - 2 hours

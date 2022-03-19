@@ -79,4 +79,5 @@ void vehicle_monitor_init(void);
 void lcd_display_init(void);
 void  App_TimerCallback (void);
 void  lcd_timercallback (void);
+void game_param_init(void);
 #endif  // APP_H

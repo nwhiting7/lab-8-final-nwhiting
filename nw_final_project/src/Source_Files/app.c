@@ -141,6 +141,29 @@ v_speed global_speed;
 v_direction global_direction;
 fifo ind_speed;
 struct node_t* pb_data;
+//////////game initialization values//////////
+float canyon_length = 1;
+
+///////////////////////////////////////////////
+
+typedef struct canyon_initialization{
+  uint32_t x_start;
+  uint32_t x_end;
+  uint32_t y_start;
+  uint32_t y_end;
+}can_init;
+
+typedef struct platform_initialization{
+  uint32_t max_force;
+  uint32_t mass;
+  uint32_t length;
+  bool bounce_enable, bounce_limited, auto_control;
+  uint32_t bounce_speed;
+}plat_init;
+
+struct canyon_initialization canyon_game;
+
+
 /***************************************************************************//**
  * @brief Initializes all tasks for Lab3.
  *
@@ -150,10 +173,7 @@ struct node_t* pb_data;
 void app_init(void)
 {
   gpio_open();
-  //pb0_init();
-  //pb1_init();
-  //cap_init();
-
+  game_param_init();
   speed_setpoint_init();
   vehicle_direction_init();
   vehicle_monitor_init();
@@ -162,6 +182,16 @@ void app_init(void)
   led_init();
 
   lab6_init();
+}
+
+void game_param_init(void)
+{
+  float middle = canyon_length / 0.01828;
+  int total_pixels = (128 - middle) / 2;
+  canyon_game.x_start = total_pixels;
+  canyon_game.x_end = 128 - total_pixels;
+  canyon_game.y_start = 0;
+  canyon_game.y_end = 128;
 }
 
 /***************************************************************************//**
@@ -676,6 +706,17 @@ static void lcd_display_task(void *arg)
                                5,
                                5,
                                true);
+
+        GLIB_drawLineV(&glibContext,
+                       canyon_game.x_start,
+                       canyon_game.y_start,
+                       canyon_game.y_end);
+
+        GLIB_drawLineV(&glibContext,
+                       canyon_game.x_end,
+                       canyon_game.y_start,
+                       canyon_game.y_end);
+
         DMD_updateDisplay();
 
     }

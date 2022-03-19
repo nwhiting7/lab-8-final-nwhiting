@@ -1,7 +1,7 @@
 src/Source_Files/app.o: ../src/Source_Files/app.c \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\common\toolchain\inc\sl_gcc_preinclude.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/blink.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/gpio.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/blink.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/gpio.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_gpio.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\device\siliconlabs\efm32pg12b\include\em_device.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\device\siliconlabs\efm32pg12b\include\efm32pg12b500f1024gl125.h \
@@ -61,29 +61,29 @@ src/Source_Files/app.o: ../src/Source_Files/app.c \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_assert.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_core.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_common.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\autogen/sl_component_catalog.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/emlib_core_debug_config.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\autogen/sl_component_catalog.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/emlib_core_debug_config.h \
  C\:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.2\hardware\kit\SLSTK3402A_EFM32PG12\config/bspconfig.h \
  C\:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.2\hardware\kit\common\bsp/bsp_bcp.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\glib\glib.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\glib\glib_color.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\dmd\dmd.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\em_types.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/app.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/cmu.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/app.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/cmu.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_cmu.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_cmu_compat.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_gpio.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/capsense.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/capsense.h \
  C\:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.2\hardware\kit\SLSTK3402A_EFM32PG12\config/capsenseconfig.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_emu.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\kernel\include\os.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_def.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_path.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\autogen/rtos_description.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\autogen/rtos_description.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_opt_def.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/cpu_cfg.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/cpu_cfg.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_def.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_port_sel.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\ports\source\gnu\armv7m_cpu_port.h \
@@ -92,25 +92,25 @@ src/Source_Files/app.o: ../src/Source_Files/app.c \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_port_sel.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_def.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\toolchains.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/rtos_err_cfg.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/rtos_err_cfg.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_mem.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/common_cfg.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/common_cfg.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_math.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_utils.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_version.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_utils.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/rtos_cfg.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/os_cfg.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/rtos_cfg.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/os_cfg.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\kernel\include\os_type.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\kernel\include\os_port_sel.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\ports\source\gnu\armv7m_os_cpu.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\service\sleeptimer\inc\sl_sleeptimer.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/sl_sleeptimer_config.h \
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/sl_sleeptimer_config.h \
  c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\common\inc\sl_status.h \
- C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/fifo.h
+ C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/fifo.h
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\common\toolchain\inc\sl_gcc_preinclude.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/blink.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/gpio.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/blink.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/gpio.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_gpio.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\device\siliconlabs\efm32pg12b\include\em_device.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\device\siliconlabs\efm32pg12b\include\efm32pg12b500f1024gl125.h:
@@ -170,29 +170,29 @@ c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_assert.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_core.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_common.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\autogen/sl_component_catalog.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/emlib_core_debug_config.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\autogen/sl_component_catalog.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/emlib_core_debug_config.h:
 C\:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.2\hardware\kit\SLSTK3402A_EFM32PG12\config/bspconfig.h:
 C\:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.2\hardware\kit\common\bsp/bsp_bcp.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\glib\glib.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\glib\glib_color.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\dmd\dmd.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\middleware\glib\em_types.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/app.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/cmu.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/app.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/cmu.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_cmu.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_cmu_compat.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_gpio.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/capsense.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/capsense.h:
 C\:\SiliconLabs\SimplicityStudio\v5\developer\sdks\gecko_sdk_suite\v3.2\hardware\kit\SLSTK3402A_EFM32PG12\config/capsenseconfig.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\emlib\inc\em_emu.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\kernel\include\os.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_def.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_path.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\autogen/rtos_description.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\autogen/rtos_description.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_opt_def.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/cpu_cfg.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/cpu_cfg.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_def.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_port_sel.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\ports\source\gnu\armv7m_cpu_port.h:
@@ -201,19 +201,19 @@ c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\cpu\include\cpu_port_sel.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_def.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\toolchains.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/rtos_err_cfg.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/rtos_err_cfg.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_mem.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/common_cfg.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/common_cfg.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_math.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\lib_utils.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_version.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\common\include\rtos_utils.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/rtos_cfg.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/os_cfg.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/rtos_cfg.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/os_cfg.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\kernel\include\os_type.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\kernel\include\os_port_sel.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\micrium_os\ports\source\gnu\armv7m_os_cpu.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\service\sleeptimer\inc\sl_sleeptimer.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\config/sl_sleeptimer_config.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\config/sl_sleeptimer_config.h:
 c\:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.2\platform\common\inc\sl_status.h:
-C\:\Users\nickd\SimplicityStudio\v5_workspace\RTOS_Lab7_SharedResourced\src\Header_Files/fifo.h:
+C\:\Users\nickd\Documents\GitHub\lab-8-final-nwhiting\nw_final_project\src\Header_Files/fifo.h:

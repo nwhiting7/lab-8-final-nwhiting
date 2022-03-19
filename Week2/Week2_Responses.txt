@@ -1,14 +1,21 @@
-Cutting Points for Testing - 
-	To test my program, I am planning to test the "Physics Engine" task and "LED Output Task". For both tasks, I will test to see if 
-the inputs produce the desired task outputs. I will create unit tests for this in the near future.
+Week #2 -
 
+-------------------------------------------------------------------Statement of where project stands:
+	This week, I completed the platform task and part of the slider shield/nuke task. I began to further explore the physics equations that control the slider and functions that draw geometry on the LCD screen. I also implemented a function to draw the canyon width according to the user-specified width and of began to develop the physics engine and slider task to handle the slider implementation of the game.
+	For this upcoming week, I am planning to finish the slider shield/nuke task and additional slider physics task functionality to begin the planned unit tests for the slider shiled/nuke task and slider physics task.
+	
+-------------------------------------------------------------------Summary effort and estimate numbers:
+I completed around 20% of the project timeline so far in about 10 hours. This required about 1.25x more time than initially expected. I have added time for additional unit tests as I want to incrementally test my project and want to create the slider task first before moving on. I have added an additional 4 hours for unit tests for final, completed project.
 
-Schedule -
+complete - Task diagram - 2 hours
+	Helped me create plan for incremental development.
+complete - Gather Relevant Physics Equations- 1 hour
+	Going to create slider functionality first. Generally understood relevant kinematic equations and how they create slider functionality. This will aid in 	  development of slider functionality in the physics engine.
+complete - Learn how to further display geometry and physics on LCD screen - 3 hours
+	   Understand functions that draw basic shapes on LCD screen. This has saved me from having to write complex code to directly communicate with LCD screen.
+complete - Implement Slider Shield Task - estimated 2 hours, completed in 4 hours.
+	   Slider now moves with pushbutton input. Still fixing a few bugs, but generally works.
 
-Task diagram - 2 hours
-Gather Relevant Physics Equations- 1 hour
-Learn how to further display geometry and physics on LCD screen - 3 hours
-Implement Slider Shield Task - 2 hours
 Test Shield Task Produces Desired Output - 1 hour
 Implement Slider Physics Task - 2 hours
 Test Physics Task Produces Desired Output - 1 hour
@@ -18,8 +25,29 @@ Implement LED Output Task - 1 hour
 Test LED Task Produces Desired Output - 2 hours
 Implement LCD Task, create geometry - 4 hours
 Create Unit Tests for project - 4 hours
-Run unit tests on project - 4 hours
+Run/create addtional unit tests on project - 4 hours
 
-Estimate Total Time: 31 hours
+Completed Time: 10 hours
+Estimate Time Left: 26 hours
+Total Time: 36 hours
+	
+
+----------------------------------------------------------------------Test Plan and Results
+	To test my program, I am planning to test the "Physics Engine" task, "slider shield/nuke" task, and "platform" task. The reason for this is that I want to make sure that the foundation of the game is reliable before creating any additional functionality.
+	
+	All unit tests are in status: Not Run
+	Unit Test 1 - Slider shield and nuke indicators are registered.
+	Unit Test 2 - Nuke ability can only be used three times
+	Unit Test 3 - Shield ability stays active for specified amount of time, even if button is held. Shield ability should rearm after specified amount of time.
+	Unit Test 4 - Slider Shield/Nuke task correctly set flags.
+	Unit Test 5 - Canyon data structure is correctly initializaed with user-specified parameters.
+	Unit Test 6 - Platform data structure is correctly initialized with user-specified parameters.
+	Unit Test 7 - When bounce from walls is enabled, velocity of platform is changed to same velocity, but opposite direction.
+	Unit Test 8 - When bounce from walls limited is enabled, signal to destroy platform when platform speed is too high is indicated.
+	Unit Test 9 - Slider physics equations produce correct outcomes and correspond to user-specified values.
+	Unit Test 10 - Slider shield collision with Holtzman masses correctly increments kinetic energy by user-specified value.
+	
+	
+
 
 

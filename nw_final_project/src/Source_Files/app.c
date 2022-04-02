@@ -142,26 +142,53 @@ v_direction global_direction;
 fifo ind_speed;
 struct node_t* pb_data;
 //////////game initialization values//////////
-float canyon_length = 1;
+float canyon_length = 2;
 
-///////////////////////////////////////////////
+float max_force_dec = 4;
+float mass_kg = 5;
+float length_cm = 0.25;
+bool bounce_enable_set = true;
+bool bounce_limited_set = false;
+bool auto_control_set = false;
+float bounce_speed_set = 0;
 
+int arm_window_set = 5;
+int recharge_set = 1000;
+int shield_duration = 500;
+
+/////////global variables///////////////
+float timer_update = 2;
+int arm_window_tick = 0;
+int arm_duration_tick = 0;
+////////////////////Data Struct Declaration//////////////////
 typedef struct canyon_initialization{
-  uint32_t x_start;
-  uint32_t x_end;
-  uint32_t y_start;
-  uint32_t y_end;
+  int x_start;
+  int x_end;
+  int y_start;
+  int y_end;
 }can_init;
 
 typedef struct platform_initialization{
-  uint32_t max_force;
-  uint32_t mass;
-  uint32_t length;
+  float max_force;
+  float mass;
+  float length;
   bool bounce_enable, bounce_limited, auto_control;
-  uint32_t bounce_speed;
+  float bounce_speed;
+  float position;
+  float pos_left;
+  float pos_right;
+  float velocity;
+  bool armed;
+  int arm_window;
+  int recharge;
+  bool ind_armed;
+  bool ind_charging;
 }plat_init;
 
+///////////////////////Data Struct Initialization//////////////
 struct canyon_initialization canyon_game;
+struct platform_initialization plat_game;
+struct __GLIB_Rectangle_t shield;
 
 
 /***************************************************************************//**
@@ -192,6 +219,28 @@ void game_param_init(void)
   canyon_game.x_end = 128 - total_pixels;
   canyon_game.y_start = 0;
   canyon_game.y_end = 128;
+
+  float add_each_side = (length_cm / 2) / 0.01828;
+  int conv_add_each_side = add_each_side;
+  plat_game.pos_right = conv_add_each_side;
+  plat_game.pos_left = conv_add_each_side;
+
+  plat_game.auto_control = auto_control_set;
+  plat_game.bounce_enable = bounce_enable_set;
+  plat_game.bounce_limited = bounce_limited_set;
+  plat_game.bounce_speed = bounce_speed_set;
+  plat_game.length = length_cm;
+  plat_game.mass = mass_kg;
+  plat_game.max_force = 0;
+  plat_game.position = 0;
+  plat_game.velocity = 0;
+  plat_game.armed = 0;
+  plat_game.arm_window = arm_window_set;
+  plat_game.recharge = recharge_set;
+  plat_game.ind_armed = false;
+  plat_game.ind_charging = false;
+
+
 }
 
 /***************************************************************************//**
@@ -323,7 +372,7 @@ static void speed_setpoint_task(void *arg)
       DEF_NULL,             /* Timestamp is not used.                  */
       &err);
 
-      OSMutexPend(&mutex_ss,             /*   Pointer to user-allocated mutex.         */
+      OSMutexPend(&mutex_vd,             /*   Pointer to user-allocated mutex.         */
                    0,                  /*   Wait for a maximum of 1000 OS Ticks.     */
                    OS_OPT_PEND_BLOCKING,  /*   Task will block.                         */
                    DEF_NULL,              /*   Timestamp is not used.                   */
@@ -334,23 +383,18 @@ static void speed_setpoint_task(void *arg)
       if(received_data == 2){
           global_speed.incr_count++;
           global_speed.speed += 5;
-          pop(&pb_data);
     }
-      else if(received_data == 1){
-          pop(&pb_data);
-
-           if(global_speed.speed != 0){
-          global_speed.decr_count++;
-          global_speed.speed -= 5;
-           }
+      else if((received_data == 1) && (plat_game.ind_armed != true) && (plat_game.ind_charging != true)){
+          plat_game.ind_armed = true;
       }
+      pop(&pb_data);
 
-      OSMutexPost(&mutex_ss,         /*   Pointer to user-allocated mutex.         */
+      OSMutexPost(&mutex_vd,         /*   Pointer to user-allocated mutex.         */
                    OS_OPT_POST_1,     /*   Only wake up highest-priority task.      */
                   &err);
 
         OSFlagPost(&flags_vm,             /*   Pointer to user-allocated event flag.    */
-                  speed_update,            /*   Application Flag A bitmask.              */
+                  direction_update,            /*   Application Flag A bitmask.              */
                   OS_OPT_POST_FLAG_SET,  /*   Set the flag.                            */
                   &err);
 
@@ -409,19 +453,15 @@ static void vehicle_direction_task(void *arg)
         CAPSENSE_Sense();
 
         direction dir = no_dir;
-        if(CAPSENSE_getPressed(CH0)) dir = hard_left;
-        if(CAPSENSE_getPressed(CH1)){
-            if(dir == no_dir) dir = left;
-        }
+        if(CAPSENSE_getPressed(CH0)) dir = left;
+        if(CAPSENSE_getPressed(CH1)) dir = left;
         if(CAPSENSE_getPressed(CH2)){
             if(dir == no_dir) dir = right;
-            else{
-                dir = no_dir;
-                return;
-            }
+            else dir = no_dir;
+
         }
         if(CAPSENSE_getPressed(CH3)){
-            if(dir == no_dir) dir = hard_right;
+            if(dir == no_dir) dir = right;
             else dir = no_dir;
         }
 
@@ -431,15 +471,12 @@ static void vehicle_direction_task(void *arg)
                      DEF_NULL,              /*   Timestamp is not used.                   */
                     &err);
 
-        global_direction.curr_dir = dir;
-
-        if((dir == left) || (dir == hard_left)){
-            global_direction.left_turns++;
+        if(dir == right) plat_game.max_force = max_force_dec;
+        else if(dir == left) plat_game.max_force = max_force_dec * -1;
+        else{
+            plat_game.max_force = 0;
+            plat_game.velocity -= (plat_game.velocity * 0.1);
         }
-        else if((dir == right) || (dir == hard_right)){
-            global_direction.right_turns++;
-        }
-
 
 
         OSMutexPost(&mutex_vd,         /*   Pointer to user-allocated mutex.         */
@@ -514,7 +551,19 @@ static void vehicle_monitor_task(void *arg)
                      DEF_NULL,              /*   Timestamp is not used.                   */
                     &err);
 
-        new_curr_dir = global_direction.curr_dir;
+        plat_game.velocity = plat_game.velocity + ((plat_game.max_force / plat_game.mass) * timer_update);
+        plat_game.position = plat_game.position + (plat_game.velocity * timer_update);
+
+       if((plat_game.position - plat_game.pos_left) < canyon_game.x_start){
+           plat_game.position = (canyon_game.x_start + plat_game.pos_left);
+           if(plat_game.bounce_enable) plat_game.velocity *= -1;
+       }
+       else if((plat_game.position + plat_game.pos_right) > canyon_game.x_end){
+           plat_game.position = (canyon_game.x_end - plat_game.pos_right);
+           if(plat_game.bounce_enable) plat_game.velocity *= -1;
+       }
+
+
 
         OSMutexPost(&mutex_vd,         /*   Pointer to user-allocated mutex.         */
                      OS_OPT_POST_1,     /*   Only wake up highest-priority task.      */
@@ -633,6 +682,7 @@ static void lcd_display_task(void *arg)
     char lcd_l_dir[] = "Left";
     char lcd_r_dir[] = "Right";
     char lcd_hardr_dir[] = "Hard Right";
+    int slider_pos;
 
     while (1)
     {
@@ -649,6 +699,7 @@ static void lcd_display_task(void *arg)
                     &err);
 
         lcd_dir = global_direction.curr_dir;
+        slider_pos = plat_game.position;
 
         OSMutexPost(&mutex_vd,         /*   Pointer to user-allocated mutex.         */
                      OS_OPT_POST_1,     /*   Only wake up highest-priority task.      */
@@ -667,45 +718,13 @@ static void lcd_display_task(void *arg)
                     &err);
 
 
-        itoa(lcd_speed,snum,10);
-
-        switch(lcd_dir){
-          case hard_left:
-            strcpy(sdir, lcd_hardl_dir);
-            break;
-
-          case left:
-            strcpy(sdir, lcd_l_dir);
-            break;
-
-          case right:
-            strcpy(sdir, lcd_r_dir);
-            break;
-          case hard_right:
-            strcpy(sdir, lcd_hardr_dir);
-            break;
-          default:
-            strcpy(sdir, lcd_no_dir);
-            break;
-        }
-
         GLIB_clear(&glibContext);
 
-        GLIB_drawStringOnLine(&glibContext,
-                              snum,
-                               1,
-                               GLIB_ALIGN_LEFT,
-                               5,
-                               5,
-                               true);
-
-        GLIB_drawStringOnLine(&glibContext,
-                              sdir,
-                               0,
-                               GLIB_ALIGN_LEFT,
-                               5,
-                               5,
-                               true);
+        GLIB_drawLineH  (&glibContext,
+        slider_pos - plat_game.pos_left,
+        117,
+        slider_pos + plat_game.pos_right
+        );
 
         GLIB_drawLineV(&glibContext,
                        canyon_game.x_start,
@@ -716,6 +735,16 @@ static void lcd_display_task(void *arg)
                        canyon_game.x_end,
                        canyon_game.y_start,
                        canyon_game.y_end);
+
+        if(plat_game.armed){
+            shield.xMax = (slider_pos + plat_game.pos_right) + 2;
+            shield.xMin = (slider_pos - plat_game.pos_left) - 2;
+            shield.yMax = 119;
+            shield.yMin = 115;
+
+            GLIB_drawRect ( &glibContext,
+            &shield);
+        }
 
         DMD_updateDisplay();
 
@@ -912,7 +941,7 @@ void lab6_init(void){
   OSTmrCreate(&vd_timer,            /*   Pointer to user-allocated timer.     */
                   "Vehicle Direction Timer",           /*   Name used for debugging.             */
                      0,                  /*     0 initial delay.                   */
-                    3,                  /*   100 Timer Ticks period.              */
+                    1,                  /*   100 Timer Ticks period.              */
                    OS_OPT_TMR_PERIODIC,  /*   Timer is periodic.                   */
                    App_TimerCallback,    /*   Function Called when timer expires.           */
                    DEF_NULL,             /*   No arguments to callback.            */
@@ -1035,8 +1064,31 @@ void GPIO_ODD_IRQHandler(void)
  ******************************************************************************/
 void SysTick_Handler(void)
 {
-  if(global_direction.curr_dir != no_dir) global_direction.curr_dir_hold++;
-  else global_direction.curr_dir_hold = 0;
+  if((plat_game.ind_armed == true) && (plat_game.ind_charging != true)){
+      arm_window_tick++;
+      if(arm_window_tick >= plat_game.arm_window){
+          plat_game.armed = true;
+          arm_window_tick = 0;
+      }
+  }
+
+  if(plat_game.armed == true){
+      arm_duration_tick++;
+      if(arm_duration_tick >= shield_duration){
+          plat_game.armed = false;
+          plat_game.ind_armed = false;
+          plat_game.ind_charging = true;
+          arm_duration_tick = 0;
+      }
+  }
+
+  if(plat_game.ind_charging == true){
+      arm_duration_tick++;
+      if(arm_duration_tick >= plat_game.recharge){
+          plat_game.ind_charging = false;
+          arm_duration_tick = 0;
+      }
+  }
 
 }
 

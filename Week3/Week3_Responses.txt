@@ -38,7 +38,7 @@ Total Time: 36 hours
 	
 
 ----------------------------------------------------------------------Test Plan and Results
-Here are the unit tests I have implemented. I will add more once I understand what I'm missing after I complete the corresponding functions. Theses tests are also in unittests.c of included test file.
+Here are the unit tests I have implemented. They all fail because I have not finished final implementation of the tests in simplicity. I will add more once I understand what I'm missing after I complete the corresponding functions. Theses tests are also in unittests.c of included test file.
 //Ensure right side of capsense slider initiaties correct velocity direction and max force.
 CTEST2(cutpointtests, test_process_1){
     struct game_platform test;

@@ -53,8 +53,31 @@ Press left half of capsense sensor to generate a small amount of force. Perform 
 Press right half of capsense sensor to generate a small amount of force. Perform this when near the right canyon wall and ensure the slider bounces after colliding with the cayon wall. 
 
 Test #4: 
-Center the slider in th middle of the screen. Press the left half of the capsense slier to generate a significant speed. Ram the slider into the left canyon wall. Ensure the slider is destroyed and there is a message stating "Game Over, Slider was Destroyed!".
-Center the slider in th middle of the screen. Press the right half of the capsense slier to generate a significant speed. Ram the slider into the right canyon wall. Ensure the slider is destroyed and there is a message stating "Game Over, Slider was Destroyed!".
+Center the slider in the middle of the screen. Press the left half of the capsense slier to generate a significant speed. Ram the slider into the left canyon wall. Ensure the slider is destroyed and there is a message stating "Game Over, Slider was Destroyed!".
+Center the slider in the middle of the screen. Press the right half of the capsense slier to generate a significant speed. Ram the slider into the right canyon wall. Ensure the slider is destroyed and there is a message stating "Game Over, Slider was Destroyed!".
+
+Test #5:
+Center the slider in the middle of the screen, press BTN1, ensure that there is an outline around the slider, representing the shield. The outline should
+last for the specified amount of time.
+Press BTN1 to reactivate shield, press BTN1 while shield is active, shield should still only last specified amount of time.
+Press BTN1 immediately after shield deactivates, shield should not activate until the recharge time has subsided.
+
+Test #6:
+Center the slider under the falling Holtzman mass, ensure that when the holtman mass collides with the sider, the Holtman mass bounces with less kinetic energy than before.
+
+Test #7:
+Position slider underneath falling Holtzman mass, activate shield while the Holtzman mass bounces off the platform. Ensure that the mass bounces off the platform with more energyt than what the Holtzman mass was falling with.
+
+Test #8: 
+Ensure that when sider is still, left LED is not lit.
+Press left or right side of capsense slider. Ensure left LED becomes brighter as the speed of the platform increases.
+
+Test #9:
+Press left and right side of capsense to position the slider away from the falling Holtzman mass, Ensure that the rigt LED is lit bright.
+
+Test #10:
+Press left and right side of capsense to position the slider directly underneath the falling Holtzman mass. Ensure that the right LED is not light or very dim.
+
 
 
 

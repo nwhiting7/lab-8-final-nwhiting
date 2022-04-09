@@ -1,0 +1,173 @@
+Week #3 -
+
+-------------------------------------------------------------------Statement of where project stands:
+	This week, I was able to draw the platform, platfrom shield, and canyon walls as well as the corresponding functionality for bouncing, stopping at the wall, and enabling the shield. In addition, I created 10 unit tests to test the functionality of the physics engine, shield implementation, and velocity 
+implementation of the slider. I encountered unforseen problems that came with animating the slider and was not able to test the unit tests I created to test functionality. 
+	
+-------------------------------------------------------------------Summary effort and estimate numbers:
+I completed around 42% of the project timeline so far in about 10 hours. This required about 1.25x more time than initially expected. I have added time for additional unit tests as I may need to add more 
+tests based on necesary unforseen issues that I may encounter due to not having some of the functions completed. I have added an additional 4 hours for unit tests for final, completed project.
+
+complete - Task diagram - 2 hours
+	Helped me create plan for incremental development.
+complete - Gather Relevant Physics Equations- 1 hour
+	Going to create slider functionality first. Generally understood relevant kinematic equations and how they create slider functionality. This will aid in 	  development of slider functionality in the physics engine.
+complete - Learn how to further display geometry and physics on LCD screen - 3 hours
+	   Understand functions that draw basic shapes on LCD screen. This has saved me from having to write complex code to directly communicate with LCD screen.
+complete - Implement Slider Shield Task - estimated 2 hours, completed in 4 hours.
+	   Slider now moves with pushbutton input. Still fixing a few bugs, but generally works.
+
+Test Shield Task Produces Desired Output - 1 hour
+
+complete - Implement Slider Physics Task - 2 hours
+
+Test Physics Task Produces Desired Output - 1 hour
+
+complete - Implement Physics Engine - 4 hours
+
+Test Physics Task Produces Desired Output - 2 hours
+Implement LED Output Task - 1 hour
+Test LED Task Produces Desired Output - 2 hours
+Implement LCD Task, create geometry - 4 hours
+Create Unit Tests for project - 4 hours
+Run/create addtional unit tests on project - 4 hours
+
+Completed Time: 16 hours
+Estimate Time Left: 20 hours
+Total Time: 36 hours
+	
+
+----------------------------------------------------------------------Test Plan and Results
+Here are the unit tests I have implemented. I will add more once I understand what I'm missing after I complete the corresponding functions. Theses tests are also in unittests.c of included test file.
+//Ensure right side of capsense slider initiaties correct velocity direction and max force.
+CTEST2(cutpointtests, test_process_1){
+    struct game_platform test;
+    test = slider_force_task(4.0, 3.0, 0);
+    ASSERT_EQUAL(4.0, test.max_force);
+    ASSERT_EQUAL(3.0, test.velocity);
+}
+//Ensure friction decreases velocity when platform is moving to the right of the screen.
+CTEST2(cutpointtests, test_process_2){
+    struct game_platform test;
+    test = slider_force_task(0.0, 4.0, 2);
+    ASSERT_EQUAL(3.6, test.velocity);
+    ASSERT_EQUAL(0, test.max_force);
+}
+//Ensure left side of capsense slider initiaties correct velocity direction and max force.
+CTEST2(cutpointtests, test_process_3){
+    struct game_platform test;
+    test = slider_force_task(5.0, 2.0, 1);
+    ASSERT_EQUAL(-5.0, test.velocity);
+    ASSERT_EQUAL(2.0, test.max_force);
+}
+//Ensure friction decreases velocity even when no direction and force are present.
+CTEST2(cutpointtests, test_process_4){
+    struct game_platform test;
+    test = slider_force_task(0.0, 10, 0);
+    ASSERT_EQUAL(8, test.velocity);
+}
+//ensure kinematic equations are correct.
+CTEST2(cutpointtests, test_process_5){
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test = physics_task(test);
+    ASSERT_EQUAL(4.06, test.velocity);
+    ASSERT_EQUAL(0.406, test.position);
+}
+//ensure platoform stops at right cayon wall when bounce is not enabled.
+CTEST2(cutpointtests, test_process_6){
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test.position = 0;
+    test.least_position = 8;
+    test.most_position = 16;
+    test = physics_task(test);
+    ASSERT_EQUAL(4.06, test.velocity);
+    ASSERT_EQUAL(8, test.position);
+}
+//ensure platoform stops at left canyon wall when bounce is not enabled.
+CTEST2(cutpointtests, test_process_7){
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test.position = 36;
+    test.least_position = 8;
+    test.most_position = 16;
+    test = physics_task(test);
+    ASSERT_EQUAL(4.06, test.velocity);
+    ASSERT_EQUAL(16, test.position);
+}
+//ensure platoform bounces off left canyon wall when bounce is enabled
+CTEST2(cutpointtests, test_process_8){
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test.position = 0;
+    test.least_position = 8;
+    test.most_position = 16;
+    test = physics_task(test);
+    ASSERT_EQUAL(4.06, test.velocity);
+    ASSERT_EQUAL(8.4, test.position);
+}
+//ensure platform bounces off right canyon wall
+CTEST2(cutpointtests, test_process_9){
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test.position = 36;
+    test.least_position = 8;
+    test.most_position = 16;
+    test = physics_task(test);
+    ASSERT_EQUAL(-4.06, test.velocity);
+    ASSERT_EQUAL(15.6, test.position);
+}
+//ensure platoform is destroyed when above max velocity.
+CTEST2(cutpointtests, test_process_10){
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test.position = 36;
+    test.least_position = 8;
+    test.most_position = 16;
+    test.max_speed = 4;
+    test.destroyed = false;
+    test = physics_task(test);
+    ASSERT_EQUAL(-4.06, test.velocity);
+    ASSERT_EQUAL(16, test.position);
+    ASSERT_EQUAL(true, test.destroyed);
+
+    struct game_platform test;
+    test.mass = 3.0;
+    test.max_force = 2.0;
+    test.timer_update = 0.1;
+    test.velocity = 4;
+    test.position = 0;
+    test.least_position = 8;
+    test.most_position = 16;
+    test.max_speed = 4;
+    test.destroyed = false;
+    test = physics_task(test);
+    ASSERT_EQUAL(4.06, test.velocity);
+    ASSERT_EQUAL(8.4, test.position);
+    ASSERT_EQUAL(4, test.max_speed);
+    ASSERT_EQUAL(true, test.destroyed);
+}
+	
+	
+
+
+

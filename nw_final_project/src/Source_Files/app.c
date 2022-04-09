@@ -155,9 +155,16 @@ float bounce_speed_set = 0;
 int arm_window_set = 5;
 int recharge_set = 1000;
 int shield_duration = 500;
+float gravity = 9.8;
+
+int num_holtzman_set = 2;
+float holtz_width_set = 5;
+float xvel_set = 1;
+float yvel_set = 0;
+int init_pos_mm_set = 0;
 
 /////////global variables///////////////
-float timer_update = 2;
+float timer_update = 0.1;
 int arm_window_tick = 0;
 int arm_duration_tick = 0;
 ////////////////////Data Struct Declaration//////////////////
@@ -185,10 +192,22 @@ typedef struct platform_initialization{
   bool ind_charging;
 }plat_init;
 
+typedef struct holtzman_intitialization{
+  int num;
+  float holtz_width;
+  float xvel;
+  float yvel;
+  int init_pos_mm;
+  int x_pos;
+  int y_pos;
+
+}holtz_init;
+
 ///////////////////////Data Struct Initialization//////////////
 struct canyon_initialization canyon_game;
 struct platform_initialization plat_game;
 struct __GLIB_Rectangle_t shield;
+struct holtzman_intitialization holtz_game;
 
 
 /***************************************************************************//**
@@ -239,6 +258,15 @@ void game_param_init(void)
   plat_game.recharge = recharge_set;
   plat_game.ind_armed = false;
   plat_game.ind_charging = false;
+
+  holtz_game.holtz_width = holtz_width_set;
+  holtz_game.init_pos_mm = init_pos_mm_set;
+  holtz_game.num = num_holtzman_set;
+  holtz_game.xvel = xvel_set;
+  holtz_game.yvel = yvel_set;
+  holtz_game.x_pos = 0;
+  holtz_game.y_pos = 0;
+
 
 
 }
@@ -575,7 +603,10 @@ static void vehicle_monitor_task(void *arg)
                      DEF_NULL,              /*   Timestamp is not used.                   */
                     &err);
 
-        new_speed = global_speed.speed;
+        holtz_game.yvel = holtz_game.yvel + (gravity * timer_update);
+        holtz_game.y_pos = holtz_game.y_pos + (holtz_game.yvel * timer_update);
+
+        if(holtz_game.x_pos < canyon_game.x_start) holtz_game.x_pos = canyon_game.x_start + 1;
 
         OSMutexPost(&mutex_ss,         /*   Pointer to user-allocated mutex.         */
                      OS_OPT_POST_1,     /*   Only wake up highest-priority task.      */
@@ -736,6 +767,10 @@ static void lcd_display_task(void *arg)
                        canyon_game.y_start,
                        canyon_game.y_end);
 
+        GLIB_drawCircle(&glibContext,
+                       holtz_game.x_pos,
+                       holtz_game.y_pos,
+                       holtz_game.holtz_width);
         if(plat_game.armed){
             shield.xMax = (slider_pos + plat_game.pos_right) + 2;
             shield.xMin = (slider_pos - plat_game.pos_left) - 2;

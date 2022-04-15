@@ -20,6 +20,7 @@
 #include "os.h"
 #include "stdlib.h"
 #include <string.h>
+#include <math.h>
 
 /*******************************************************************************
  ***************************  LOCAL VARIABLES   ********************************
@@ -142,11 +143,11 @@ v_direction global_direction;
 fifo ind_speed;
 struct node_t* pb_data;
 //////////game initialization values//////////
-float canyon_length = 2;
+float canyon_length = 1000;
 
-float max_force_dec = 4;
+float max_force_dec = 600;
 float mass_kg = 5;
-float length_cm = 0.25;
+float length_cm = 200;
 bool bounce_enable_set = true;
 bool bounce_limited_set = false;
 bool auto_control_set = false;
@@ -156,12 +157,15 @@ int arm_window_set = 5;
 int recharge_set = 1000;
 int shield_duration = 500;
 float gravity = 9.8;
+float ke = 0;
 
 int num_holtzman_set = 2;
-float holtz_width_set = 5;
+float holtz_width_set = 200;
 float xvel_set = 1;
-float yvel_set = 0;
+float yvel_set = 30;
 int init_pos_mm_set = 0;
+float holtz_mass_set = 5;
+float ke_reduction_set = 0.7;
 
 /////////global variables///////////////
 float timer_update = 0.1;
@@ -173,6 +177,7 @@ typedef struct canyon_initialization{
   int x_end;
   int y_start;
   int y_end;
+  float pixel_const;
 }can_init;
 
 typedef struct platform_initialization{
@@ -182,8 +187,8 @@ typedef struct platform_initialization{
   bool bounce_enable, bounce_limited, auto_control;
   float bounce_speed;
   float position;
-  float pos_left;
-  float pos_right;
+  int pos_left;
+  int pos_right;
   float velocity;
   bool armed;
   int arm_window;
@@ -194,12 +199,14 @@ typedef struct platform_initialization{
 
 typedef struct holtzman_intitialization{
   int num;
-  float holtz_width;
+  int holtz_width;
   float xvel;
   float yvel;
   int init_pos_mm;
   int x_pos;
   int y_pos;
+  float mass;
+  float ke_reduction;
 
 }holtz_init;
 
@@ -232,17 +239,21 @@ void app_init(void)
 
 void game_param_init(void)
 {
-  float middle = canyon_length / 0.01828;
-  int total_pixels = (128 - middle) / 2;
-  canyon_game.x_start = total_pixels;
-  canyon_game.x_end = 128 - total_pixels;
+
+  canyon_game.x_start = 0;
+  canyon_game.x_end = 128;
   canyon_game.y_start = 0;
   canyon_game.y_end = 128;
+  canyon_game.pixel_const = (canyon_length / 100) / 128;
 
-  float add_each_side = (length_cm / 2) / 0.01828;
-  int conv_add_each_side = add_each_side;
+
+  float add_each_side = (length_cm / 100) / canyon_game.pixel_const;
+  int conv_add_each_side = add_each_side / 2;
   plat_game.pos_right = conv_add_each_side;
   plat_game.pos_left = conv_add_each_side;
+
+
+
 
   plat_game.auto_control = auto_control_set;
   plat_game.bounce_enable = bounce_enable_set;
@@ -251,7 +262,7 @@ void game_param_init(void)
   plat_game.length = length_cm;
   plat_game.mass = mass_kg;
   plat_game.max_force = 0;
-  plat_game.position = 0;
+  plat_game.position = 64;
   plat_game.velocity = 0;
   plat_game.armed = 0;
   plat_game.arm_window = arm_window_set;
@@ -259,13 +270,15 @@ void game_param_init(void)
   plat_game.ind_armed = false;
   plat_game.ind_charging = false;
 
-  holtz_game.holtz_width = holtz_width_set;
+  holtz_game.holtz_width = ((holtz_width_set/100)/canyon_game.pixel_const)/2;
   holtz_game.init_pos_mm = init_pos_mm_set;
   holtz_game.num = num_holtzman_set;
   holtz_game.xvel = xvel_set;
   holtz_game.yvel = yvel_set;
-  holtz_game.x_pos = 0;
+  holtz_game.x_pos = 64;
   holtz_game.y_pos = 0;
+  holtz_game.mass = holtz_mass_set;
+  holtz_game.ke_reduction = ke_reduction_set;
 
 
 
@@ -580,7 +593,7 @@ static void vehicle_monitor_task(void *arg)
                     &err);
 
         plat_game.velocity = plat_game.velocity + ((plat_game.max_force / plat_game.mass) * timer_update);
-        plat_game.position = plat_game.position + (plat_game.velocity * timer_update);
+        plat_game.position = plat_game.position + (((plat_game.velocity * timer_update))/(canyon_game.pixel_const))*timer_update;
 
        if((plat_game.position - plat_game.pos_left) < canyon_game.x_start){
            plat_game.position = (canyon_game.x_start + plat_game.pos_left);
@@ -604,9 +617,20 @@ static void vehicle_monitor_task(void *arg)
                     &err);
 
         holtz_game.yvel = holtz_game.yvel + (gravity * timer_update);
-        holtz_game.y_pos = holtz_game.y_pos + (holtz_game.yvel * timer_update);
+        holtz_game.y_pos = holtz_game.y_pos + ((holtz_game.yvel * timer_update)/(canyon_game.pixel_const))*timer_update;
 
-        if(holtz_game.x_pos < canyon_game.x_start) holtz_game.x_pos = canyon_game.x_start + 1;
+
+        holtz_game.x_pos = holtz_game.x_pos + ((holtz_game.xvel)/(canyon_game.pixel_const));
+
+        if(((holtz_game.y_pos + holtz_game.holtz_width) >= 124) && ((holtz_game.x_pos + holtz_game.holtz_width) >= (plat_game.position - plat_game.pos_left))
+            && ((holtz_game.x_pos - holtz_game.holtz_width) <= (plat_game.position + plat_game.pos_right))){
+
+            ke = (pow(holtz_game.xvel,2) + pow(holtz_game.yvel,2));
+            holtz_game.yvel = (pow((((1-holtz_game.ke_reduction)*ke)-pow(holtz_game.xvel,2)), 0.5))*(-1);
+        }
+
+        if((holtz_game.x_pos - holtz_game.holtz_width) <= canyon_game.x_start) holtz_game.xvel *= -1;
+        if((holtz_game.x_pos + holtz_game.holtz_width) >= canyon_game.x_end) holtz_game.xvel *= -1;
 
         OSMutexPost(&mutex_ss,         /*   Pointer to user-allocated mutex.         */
                      OS_OPT_POST_1,     /*   Only wake up highest-priority task.      */
@@ -753,7 +777,7 @@ static void lcd_display_task(void *arg)
 
         GLIB_drawLineH  (&glibContext,
         slider_pos - plat_game.pos_left,
-        117,
+        124,
         slider_pos + plat_game.pos_right
         );
 
@@ -774,8 +798,8 @@ static void lcd_display_task(void *arg)
         if(plat_game.armed){
             shield.xMax = (slider_pos + plat_game.pos_right) + 2;
             shield.xMin = (slider_pos - plat_game.pos_left) - 2;
-            shield.yMax = 119;
-            shield.yMin = 115;
+            shield.yMax = 126;
+            shield.yMin = 122;
 
             GLIB_drawRect ( &glibContext,
             &shield);

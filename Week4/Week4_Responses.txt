@@ -1,173 +1,84 @@
 Week #3 -
 
 -------------------------------------------------------------------Statement of where project stands:
-	This week, I was able to draw the platform, platfrom shield, and canyon walls as well as the corresponding functionality for bouncing, stopping at the wall, and enabling the shield. In addition, I created 10 unit tests to test the functionality of the physics engine, shield implementation, and velocity 
-implementation of the slider. I encountered unforseen problems that came with animating the slider and was not able to test the unit tests I created to test functionality. 
+	This week, I worked on the physics implementation for the Holtzman mass. I clarified the physics equations with the professor and know exactly how to implement the physics. As I was working on the physics and had the professor review my project, I realized that I implemented the canyon and slider distance functionality wrong. As a result, I need to correct the canyon distance and platform distance functionality and update the slider physics to create the desired functionality. In addition, I created 10 functional tests to check along the development process of this project. Once I update the canyon and slider length functionality, I should be finishing up the holtzman mass physics and hopfully almost finished with the project.
 	
 -------------------------------------------------------------------Summary effort and estimate numbers:
-I completed around 42% of the project timeline so far in about 10 hours. This required about 1.25x more time than initially expected. I have added time for additional unit tests as I may need to add more 
+I completed around 44% of the project timeline so far in about 16.5 hours. This required about 1.25x more time than initially expected. I have added time for additional unit tests as I may need to add more 
 tests based on necesary unforseen issues that I may encounter due to not having some of the functions completed. I have added an additional 4 hours for unit tests for final, completed project.
 
 complete - Task diagram - 2 hours
 	Helped me create plan for incremental development.
+	
 complete - Gather Relevant Physics Equations- 1 hour
-	Going to create slider functionality first. Generally understood relevant kinematic equations and how they create slider functionality. This will aid in 	  development of slider functionality in the physics engine.
+	
 complete - Learn how to further display geometry and physics on LCD screen - 3 hours
-	   Understand functions that draw basic shapes on LCD screen. This has saved me from having to write complex code to directly communicate with LCD screen.
+
+complete - Understand functions that draw basic shapes on LCD screen. - 30 minutes 
+
 complete - Implement Slider Shield Task - estimated 2 hours, completed in 4 hours.
 	   Slider now moves with pushbutton input. Still fixing a few bugs, but generally works.
 
 Test Shield Task Produces Desired Output - 1 hour
 
-complete - Implement Slider Physics Task - 2 hours
+Now incomplete - Implement Slider Physics Task - 2 hours
 
 Test Physics Task Produces Desired Output - 1 hour
 
-complete - Implement Physics Engine - 4 hours
+Now incomplete - Implement Physics Engine - 4 hours
 
 Test Physics Task Produces Desired Output - 2 hours
 Implement LED Output Task - 1 hour
 Test LED Task Produces Desired Output - 2 hours
 Implement LCD Task, create geometry - 4 hours
-Create Unit Tests for project - 4 hours
+Complete - Create Unit Tests for project - 4 hours
+Complete - Create functional unit tests for project - 2 hours.
 Run/create addtional unit tests on project - 4 hours
 
-Completed Time: 16 hours
-Estimate Time Left: 20 hours
-Total Time: 36 hours
+Completed Time: 16.5 hours
+Estimate Time Left: 21 hours
+Total Time: 37.5 hours
 	
 
-----------------------------------------------------------------------Test Plan and Results
-Here are the unit tests I have implemented. I will add more once I understand what I'm missing after I complete the corresponding functions. Theses tests are also in unittests.c of included test file.
-//Ensure right side of capsense slider initiaties correct velocity direction and max force.
-CTEST2(cutpointtests, test_process_1){
-    struct game_platform test;
-    test = slider_force_task(4.0, 3.0, 0);
-    ASSERT_EQUAL(4.0, test.max_force);
-    ASSERT_EQUAL(3.0, test.velocity);
-}
-//Ensure friction decreases velocity when platform is moving to the right of the screen.
-CTEST2(cutpointtests, test_process_2){
-    struct game_platform test;
-    test = slider_force_task(0.0, 4.0, 2);
-    ASSERT_EQUAL(3.6, test.velocity);
-    ASSERT_EQUAL(0, test.max_force);
-}
-//Ensure left side of capsense slider initiaties correct velocity direction and max force.
-CTEST2(cutpointtests, test_process_3){
-    struct game_platform test;
-    test = slider_force_task(5.0, 2.0, 1);
-    ASSERT_EQUAL(-5.0, test.velocity);
-    ASSERT_EQUAL(2.0, test.max_force);
-}
-//Ensure friction decreases velocity even when no direction and force are present.
-CTEST2(cutpointtests, test_process_4){
-    struct game_platform test;
-    test = slider_force_task(0.0, 10, 0);
-    ASSERT_EQUAL(8, test.velocity);
-}
-//ensure kinematic equations are correct.
-CTEST2(cutpointtests, test_process_5){
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test = physics_task(test);
-    ASSERT_EQUAL(4.06, test.velocity);
-    ASSERT_EQUAL(0.406, test.position);
-}
-//ensure platoform stops at right cayon wall when bounce is not enabled.
-CTEST2(cutpointtests, test_process_6){
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test.position = 0;
-    test.least_position = 8;
-    test.most_position = 16;
-    test = physics_task(test);
-    ASSERT_EQUAL(4.06, test.velocity);
-    ASSERT_EQUAL(8, test.position);
-}
-//ensure platoform stops at left canyon wall when bounce is not enabled.
-CTEST2(cutpointtests, test_process_7){
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test.position = 36;
-    test.least_position = 8;
-    test.most_position = 16;
-    test = physics_task(test);
-    ASSERT_EQUAL(4.06, test.velocity);
-    ASSERT_EQUAL(16, test.position);
-}
-//ensure platoform bounces off left canyon wall when bounce is enabled
-CTEST2(cutpointtests, test_process_8){
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test.position = 0;
-    test.least_position = 8;
-    test.most_position = 16;
-    test = physics_task(test);
-    ASSERT_EQUAL(4.06, test.velocity);
-    ASSERT_EQUAL(8.4, test.position);
-}
-//ensure platform bounces off right canyon wall
-CTEST2(cutpointtests, test_process_9){
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test.position = 36;
-    test.least_position = 8;
-    test.most_position = 16;
-    test = physics_task(test);
-    ASSERT_EQUAL(-4.06, test.velocity);
-    ASSERT_EQUAL(15.6, test.position);
-}
-//ensure platoform is destroyed when above max velocity.
-CTEST2(cutpointtests, test_process_10){
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test.position = 36;
-    test.least_position = 8;
-    test.most_position = 16;
-    test.max_speed = 4;
-    test.destroyed = false;
-    test = physics_task(test);
-    ASSERT_EQUAL(-4.06, test.velocity);
-    ASSERT_EQUAL(16, test.position);
-    ASSERT_EQUAL(true, test.destroyed);
+----------------------------------------------------------------------Funtional Tests
+Test #1:
+Ensure that when the game starts, the LCD screen has a canyon wall of the left and right of the screen, A platform at the bottom of the screen, three dots at the bottom middle of the screen to represent the amount of laser defense uses left, and a Holtzman mass is falling at a reasonable speed.
 
-    struct game_platform test;
-    test.mass = 3.0;
-    test.max_force = 2.0;
-    test.timer_update = 0.1;
-    test.velocity = 4;
-    test.position = 0;
-    test.least_position = 8;
-    test.most_position = 16;
-    test.max_speed = 4;
-    test.destroyed = false;
-    test = physics_task(test);
-    ASSERT_EQUAL(4.06, test.velocity);
-    ASSERT_EQUAL(8.4, test.position);
-    ASSERT_EQUAL(4, test.max_speed);
-    ASSERT_EQUAL(true, test.destroyed);
-}
-	
-	
+Test #2:
+Press left half of the capsense sensor. Ensure platfrom moves left at reasonable speed to counterract holtzman masses.
+Press righ half of the capsense sensor. Ensure platform moves to the right at reasonable speed to counterract holtzman masses.
+
+Test #3: 
+Press left half of capsense sensor to generate a small amount of force. Perform this when near the left canyon wall and ensure the slider bounces after colliding with the cayon wall. 
+Press right half of capsense sensor to generate a small amount of force. Perform this when near the right canyon wall and ensure the slider bounces after colliding with the cayon wall. 
+
+Test #4: 
+Center the slider in the middle of the screen. Press the left half of the capsense slier to generate a significant speed. Ram the slider into the left canyon wall. Ensure the slider is destroyed and there is a message stating "Game Over, Slider was Destroyed!".
+Center the slider in the middle of the screen. Press the right half of the capsense slier to generate a significant speed. Ram the slider into the right canyon wall. Ensure the slider is destroyed and there is a message stating "Game Over, Slider was Destroyed!".
+
+Test #5:
+Center the slider in the middle of the screen, press BTN1, ensure that there is an outline around the slider, representing the shield. The outline should
+last for the specified amount of time.
+Press BTN1 to reactivate shield, press BTN1 while shield is active, shield should still only last specified amount of time.
+Press BTN1 immediately after shield deactivates, shield should not activate until the recharge time has subsided.
+
+Test #6:
+Center the slider under the falling Holtzman mass, ensure that when the holtman mass collides with the sider, the Holtman mass bounces with less kinetic energy than before.
+
+Test #7:
+Position slider underneath falling Holtzman mass, activate shield while the Holtzman mass bounces off the platform. Ensure that the mass bounces off the platform with more energyt than what the Holtzman mass was falling with.
+
+Test #8: 
+Ensure that when sider is still, left LED is not lit.
+Press left or right side of capsense slider. Ensure left LED becomes brighter as the speed of the platform increases.
+
+Test #9:
+Press left and right side of capsense to position the slider away from the falling Holtzman mass, Ensure that the rigt LED is lit bright.
+
+Test #10:
+Press left and right side of capsense to position the slider directly underneath the falling Holtzman mass. Ensure that the right LED is not light or very dim.
+
+
 
 
 

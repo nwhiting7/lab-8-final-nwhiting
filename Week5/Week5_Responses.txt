@@ -1,43 +1,44 @@
 Week #3 -
 
 -------------------------------------------------------------------Statement of where project stands:
-	This week, I was able to draw the platform, platfrom shield, and canyon walls as well as the corresponding functionality for bouncing, stopping at the wall, and enabling the shield. In addition, I created 10 unit tests to test the functionality of the physics engine, shield implementation, and velocity 
-implementation of the slider. I encountered unforseen problems that came with animating the slider and was not able to test the unit tests I created to test functionality. 
+	This week, I needed to go back and fix the functionality for the canyon width and slider length. I misunderstood the project parameters and needed to correct this. In addition to correcting the canyon length and slider length functionality, I was able to create the physics for the falling Holtzman masses. Thus far, the game is close to being complete, but I still need to run the final versions of my task cutting points on my unit tests to confirm they work. I also still need to complete the LED functionality as well as clarify a few details about the LED light requirements. Thus, with a week and a half left till the project is due, I am confident I can complete all the requirements with the exception of the auto control feature for the slider.
 	
 -------------------------------------------------------------------Summary effort and estimate numbers:
-I completed around 42% of the project timeline so far in about 10 hours. This required about 1.25x more time than initially expected. I have added time for additional unit tests as I may need to add more 
-tests based on necesary unforseen issues that I may encounter due to not having some of the functions completed. I have added an additional 4 hours for unit tests for final, completed project.
+I completed around 70% of the project timeline so far in about 24 hours. This required about 1.52x more time than initially expected. As my project stands, it functions correctly from a gameplay standpoint with the default parameters I derived. I am worried that my unit tests may not produce the exact output and I need to spend some time understanding the game version parameter functionality that is being emphasized. At the moment, the only way to change the game paramters is by manually changing a set of define statments at the top of my project.
 
-complete - Task diagram - 2 hours
-	Helped me create plan for incremental development.
-complete - Gather Relevant Physics Equations- 1 hour
-	Going to create slider functionality first. Generally understood relevant kinematic equations and how they create slider functionality. This will aid in 	  development of slider functionality in the physics engine.
-complete - Learn how to further display geometry and physics on LCD screen - 3 hours
-	   Understand functions that draw basic shapes on LCD screen. This has saved me from having to write complex code to directly communicate with LCD screen.
-complete - Implement Slider Shield Task - estimated 2 hours, completed in 4 hours.
-	   Slider now moves with pushbutton input. Still fixing a few bugs, but generally works.
+complete - Task diagram - 2 hours, estimated 2 hours
+	
+complete - Gather Relevant Physics Equations- 1 hour, estimated 2 hours
+	
+complete - Learn how to further display geometry and physics on LCD screen - 3 hours, estimated 2 hours
 
-Test Shield Task Produces Desired Output - 1 hour
+complete - Implement Slider Shield Task - completed in 4 hours, estimated 2 hours.
 
-complete - Implement Slider Physics Task - 2 hours
+complete - Test Shield Task Produces Desired Output - 1 hour, estimated 1 hour
 
-Test Physics Task Produces Desired Output - 1 hour
+complete - Implement Slider Physics Task - 2 hours, estimated 2 hours
 
-complete - Implement Physics Engine - 4 hours
+complete - Test Physics Task Produces Desired Output - 1 hour, estimated 1 hour
 
-Test Physics Task Produces Desired Output - 2 hours
-Implement LED Output Task - 1 hour
-Test LED Task Produces Desired Output - 2 hours
-Implement LCD Task, create geometry - 4 hours
-Create Unit Tests for project - 4 hours
-Run/create addtional unit tests on project - 4 hours
+complete - Implement Physics Engine - 4 hours, estimated 1 hour
 
-Completed Time: 16 hours
-Estimate Time Left: 20 hours
+complete - Test Physics Task Produces Desired Output - 2 hours, estimated 1 hour
+
+complete - Implement Holtzman mass physics, create geometry for holtzman mass - 6 hours, estimated 3 hours
+
+Understand LED output task - estimate 1 hour
+Implement LED Output Task - estimte 1 hour
+Test LED Task Produces Desired Output - estimate 2 hours
+create way to automatically process game version parameter structs - 2 hours
+Test different parameter versions for project - estimate 4 hours
+
+
+Completed Time: 26 hours
+Estimate Time Left: 10 hours
 Total Time: 36 hours
 	
 
-----------------------------------------------------------------------Test Plan and Results
+----------------------------------------------------------------------Functional Tests 
 Here are the unit tests I have implemented. I will add more once I understand what I'm missing after I complete the corresponding functions. Theses tests are also in unittests.c of included test file.
 //Ensure right side of capsense slider initiaties correct velocity direction and max force.
 CTEST2(cutpointtests, test_process_1){

@@ -156,16 +156,17 @@ float bounce_speed_set = 0;
 int arm_window_set = 5;
 int recharge_set = 1000;
 int shield_duration = 500;
-float gravity = 9.8;
+float gravity = 30;
 float ke = 0;
 
 int num_holtzman_set = 2;
 float holtz_width_set = 200;
-float xvel_set = 1;
+float xvel_set = 0.2;
 float yvel_set = 30;
 int init_pos_mm_set = 0;
 float holtz_mass_set = 5;
-float ke_reduction_set = 0.7;
+float ke_reduction_set = 0.5;
+float ke_increase_set = 0.8;
 
 /////////global variables///////////////
 float timer_update = 0.1;
@@ -207,7 +208,7 @@ typedef struct holtzman_intitialization{
   int y_pos;
   float mass;
   float ke_reduction;
-
+  float ke_increase;
 }holtz_init;
 
 ///////////////////////Data Struct Initialization//////////////
@@ -279,7 +280,7 @@ void game_param_init(void)
   holtz_game.y_pos = 0;
   holtz_game.mass = holtz_mass_set;
   holtz_game.ke_reduction = ke_reduction_set;
-
+  holtz_game.ke_increase = ke_increase_set;
 
 
 }
@@ -625,12 +626,24 @@ static void vehicle_monitor_task(void *arg)
         if(((holtz_game.y_pos + holtz_game.holtz_width) >= 124) && ((holtz_game.x_pos + holtz_game.holtz_width) >= (plat_game.position - plat_game.pos_left))
             && ((holtz_game.x_pos - holtz_game.holtz_width) <= (plat_game.position + plat_game.pos_right))){
 
+            holtz_game.y_pos = 124 - holtz_game.holtz_width;
             ke = (pow(holtz_game.xvel,2) + pow(holtz_game.yvel,2));
-            holtz_game.yvel = (pow((((1-holtz_game.ke_reduction)*ke)-pow(holtz_game.xvel,2)), 0.5))*(-1);
+
+            if(plat_game.armed) holtz_game.yvel = (pow((((1+holtz_game.ke_increase)*ke)-pow(holtz_game.xvel,2)), 0.5))*(-1);
+
+
+            else holtz_game.yvel = (pow((((1-holtz_game.ke_reduction)*ke)-pow(holtz_game.xvel,2)), 0.5))*(-1);
+
         }
 
-        if((holtz_game.x_pos - holtz_game.holtz_width) <= canyon_game.x_start) holtz_game.xvel *= -1;
-        if((holtz_game.x_pos + holtz_game.holtz_width) >= canyon_game.x_end) holtz_game.xvel *= -1;
+        if((holtz_game.x_pos - holtz_game.holtz_width) <= canyon_game.x_start){
+            holtz_game.x_pos = (canyon_game.x_start + 1)+holtz_game.holtz_width;
+            holtz_game.xvel *= -1;
+        }
+        if((holtz_game.x_pos + holtz_game.holtz_width) >= canyon_game.x_end){
+            holtz_game.x_pos = (canyon_game.x_end - 1)-holtz_game.holtz_width;
+            holtz_game.xvel *= -1;
+        }
 
         OSMutexPost(&mutex_ss,         /*   Pointer to user-allocated mutex.         */
                      OS_OPT_POST_1,     /*   Only wake up highest-priority task.      */
@@ -781,15 +794,6 @@ static void lcd_display_task(void *arg)
         slider_pos + plat_game.pos_right
         );
 
-        GLIB_drawLineV(&glibContext,
-                       canyon_game.x_start,
-                       canyon_game.y_start,
-                       canyon_game.y_end);
-
-        GLIB_drawLineV(&glibContext,
-                       canyon_game.x_end,
-                       canyon_game.y_start,
-                       canyon_game.y_end);
 
         GLIB_drawCircle(&glibContext,
                        holtz_game.x_pos,

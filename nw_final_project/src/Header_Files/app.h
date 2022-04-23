@@ -44,6 +44,8 @@ typedef enum{
 
 typedef enum{
   LEFT,
+  MID_LEFT,
+  MID_RIGHT,
   RIGHT,
   NONE,
 }slider_side;
@@ -78,6 +80,7 @@ void vehicle_direction_init(void);
 void vehicle_monitor_init(void);
 void lcd_display_init(void);
 void  App_TimerCallback (void);
+void  Physics_TimerCallback (void);
 void  lcd_timercallback (void);
 void game_param_init(void);
 #endif  // APP_H

@@ -1,0 +1,46 @@
+Week #6 -
+
+-------------------------------------------------------------------Statement of where project stands:
+	For the final week, I cleaned up my code and added LED functionality as well as the laser auto control functionality. In addition, I revised my unit tests, functional tests, and cleaned up my project code in preparation for our demo. While it seems the LED functionality works, I am not convined the functionality of LED0 works to give feedback about the position of the platform in relation to the Holtzman mass. I may lose a few points if this functionality does not work during the demo.
+	
+-------------------------------------------------------------------Summary effort and estimate numbers:
+I completed around 95% of the project timeline so far in about 36 hours. This required about 1.6x more time than initially expected. As my project stands, it functions correctly from a gameplay standpoint with the default parameters provided from week 5. I am concerned that I may have bugs that will come to light during demo, but the project functions correctly with the struct provided from week 5.
+
+complete - Task diagram - 2 hours, estimated 2 hours
+	
+complete - Gather Relevant Physics Equations- 1 hour, estimated 2 hours
+	
+complete - Learn how to further display geometry and physics on LCD screen - 3 hours, estimated 2 hours
+
+complete - Implement Slider Shield Task - completed in 4 hours, estimated 2 hours.
+
+complete - Test Shield Task Produces Desired Output - 1 hour, estimated 1 hour
+
+complete - Implement Slider Physics Task - 2 hours, estimated 2 hours
+
+complete - Test Physics Task Produces Desired Output - 1 hour, estimated 1 hour
+
+complete - Implement Physics Engine - 4 hours, estimated 1 hour
+
+complete - Test Physics Task Produces Desired Output - 2 hours, estimated 1 hour
+
+complete - Implement Holtzman mass physics, create geometry for holtzman mass - 6 hours, estimated 3 hours
+
+complete - Understand LED output task - estimate 1 hour
+complete - Implement LED Output Task - estimte 1 hour
+complete - Test LED Task Produces Desired Output - estimate 2 hours
+complete - create way to automatically process game version parameter structs - 2 hours
+complete - Test different parameter versions for project - estimate 4 hours
+
+Stuff that may cause issues during demo that I still need to fix(2 hours total):
+laser auto control funtionality
+redesign slider arm timing
+LED0 functionality bug
+
+
+Completed Time: 36 hours
+Estimate Time Left: 2-3 hours
+Total Time: 36 hours
+
+
+
